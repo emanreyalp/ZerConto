@@ -28,7 +28,7 @@
 
   <div class="field">
     <%= form.label :country_id %>
-    <%= form.text_field :country_id %>
+    <%= form.select :country_id, countries_for_select, { include_blank: false, prompt: "Choose one" } %>
   </div>
 
   <div class="actions">

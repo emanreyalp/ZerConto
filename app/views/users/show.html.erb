@@ -17,7 +17,7 @@
 
 <p>
   <strong>Roles:</strong>
-  <%= @user.roles.map(&:name) %>
+  <%= @user.decorated_roles %>
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |

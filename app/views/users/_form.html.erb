@@ -26,6 +26,11 @@
     <%= form.number_field :superior_id %>
   </div>
 
+  <div class="field">
+    <%= form.label :role %>
+    <%= form.collection_select :role_ids, @roles, :id, :name, {}, { multiple: true, class: "input" } %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

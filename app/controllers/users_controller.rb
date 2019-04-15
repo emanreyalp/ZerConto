@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_roles, only: [:edit, :new]
 
   # GET /users
   # GET /users.json
@@ -28,6 +29,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        set_roles_to_user
+
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
@@ -42,6 +45,8 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
+        set_roles_to_user
+
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -65,6 +70,16 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
+    end
+
+    def set_roles
+      @roles = Role.all
+    end
+
+    def set_roles_to_user
+      return if params[:user][:role_ids].nil?
+      # Yepp its not clean
+      @user.roles = params[:user][:role_ids].reject(&:empty?).map{ |r_id| Role.find(r_id) }
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

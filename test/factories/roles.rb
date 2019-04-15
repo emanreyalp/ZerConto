@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :role do
-    name { 'User' }
+    sequence(:name) { |n| "user-role-#{n}" }
   end
 end

@@ -17,6 +17,7 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create role" do
     assert_difference('Role.count') do
+      @role = build(:role)
       post roles_url, params: { role: { name: @role.name } }
     end
 

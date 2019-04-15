@@ -3,4 +3,6 @@ class User < ApplicationRecord
   has_many :employees, class_name: :User, foreign_key: :superior_id
   has_many :locations_user, inverse_of: :user
   has_many :locations, through: :locations_user, dependent: :destroy
+  has_many :users_role, inverse_of: :user
+  has_many :roles, through: :users_role, dependent: :destroy
 end

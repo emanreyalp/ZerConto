@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :roles
   resources :locations, only: [:index, :edit, :show, :update, :destroy]
   resources :countries
   resources :users do

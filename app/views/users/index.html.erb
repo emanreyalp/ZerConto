@@ -8,16 +8,19 @@
       <th>First name</th>
       <th>Last name</th>
       <th>Superior</th>
-      <th colspan="4"></th>
+      <th>Roles</th>
+      <th><%= submit_tag 'Hide manager', class: 'button', id: 'show-btn', onclick: 'javascript:showManagersButton()' %></th>
+      <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @users.each do |user| %>
-      <tr>
+      <tr <%= "class='manager'".html_safe if user.has_role?('manager') %> >
         <td><%= user.first_name %></td>
         <td><%= user.last_name %></td>
         <td><%= user.superior_id %></td>
+        <td><%= user.decorated_roles %></td>
         <td><%= link_to 'Locations', user_locations_path(user_id: user.id) %></td>
         <td><%= link_to 'Show', user %></td>
         <td><%= link_to 'Edit', edit_user_path(user) %></td>

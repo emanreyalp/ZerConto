@@ -5,4 +5,12 @@ class User < ApplicationRecord
   has_many :locations, through: :locations_user, dependent: :destroy
   has_many :users_role, inverse_of: :user
   has_many :roles, through: :users_role, dependent: :destroy
+
+  def has_role?(role)
+    roles.pluck(:name).include? role
+  end
+
+  def decorated_roles
+    roles.pluck(:name).join(', ')
+  end
 end

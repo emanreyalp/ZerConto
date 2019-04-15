@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Location', new_location_path %>
+<%= link_to 'New Location', new_user_location_path if @user.present? %>

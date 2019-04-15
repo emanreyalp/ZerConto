@@ -1,5 +1,5 @@
 <h1>New Location</h1>
 
-<%= render 'form', location: @location %>
+<%= render 'form', location: @location, submit_url: user_locations_path(user: @user) %>
 
 <%= link_to 'Back', locations_path %>

@@ -10,5 +10,11 @@ FactoryBot.define do
         end
       end
     end
+
+    trait :with_employee do
+      after(:create) do |user|
+        user.employees << create(:user)
+      end
+    end
   end
 end

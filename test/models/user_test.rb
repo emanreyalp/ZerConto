@@ -20,4 +20,13 @@ class UserTest < ActiveSupport::TestCase
       user.save!
     end
   end
+
+  test 'User cannot be its superior`s superior' do
+    user = create(:user, :with_employee)
+
+    assert_raises(ActiveRecord::RecordInvalid) do
+      user.superior = user.employees.first
+      user.save!
+    end
+  end
 end

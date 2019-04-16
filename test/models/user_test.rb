@@ -11,4 +11,13 @@ class UserTest < ActiveSupport::TestCase
       user.locations << sixth_location
     end
   end
+
+  test 'User cannot be its own superior' do
+    user = create(:user)
+
+    assert_raises(ActiveRecord::RecordInvalid) do
+      user.superior = user
+      user.save!
+    end
+  end
 end

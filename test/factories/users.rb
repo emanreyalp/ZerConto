@@ -11,6 +11,10 @@ FactoryBot.define do
       end
     end
 
+    trait :with_superior do
+      association :superior, factory: :user
+    end
+
     trait :with_employee do
       after(:create) do |user|
         user.employees << create(:user)

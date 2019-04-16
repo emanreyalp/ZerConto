@@ -29,4 +29,21 @@ class UserTest < ActiveSupport::TestCase
       user.save!
     end
   end
+
+  test 'Cannot be a circle in a user`s superiors chain' do
+    user = create(:user, :with_superior)
+    user_without_superior = create(:user)
+
+    # Create a route with superiors
+    # [user] -> [user.superior] -> [user_without_superior] -> []
+    user.superior.superior = user_without_superior
+    user.save!
+
+    assert_raises(ActiveRecord::RecordInvalid) do
+      # The route become a circle
+      # [user] -> [user.superior] -> [user_without_superior] -> [user]
+      user_without_superior.superior = user
+      user_without_superior.save!
+    end
+  end
 end

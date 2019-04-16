@@ -17,6 +17,10 @@ class User < ApplicationRecord
     roles.pluck(:name).join(', ')
   end
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
   private
     def superior_chain_ids
       superior_ids = []

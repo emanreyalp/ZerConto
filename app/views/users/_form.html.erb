@@ -23,7 +23,7 @@
 
   <div class="field">
     <%= form.label :superior_id %>
-    <%= form.number_field :superior_id %>
+    <%= form.select :superior_id, user.potential_superiors.collect {|u| [ u.full_name, u.id ] }, { include_blank: true, selected: user.superior_id } %>
   </div>
 
   <div class="field">

@@ -20,13 +20,27 @@ class User < ApplicationRecord
   end
 
   def potential_superiors
-    excluded_ids = superior_chain_ids << id
+    excluded_ids = [id]
+    excluded_ids.concat(employee_chain_ids)
     User.joins(:roles).where(roles: { name: 'manager' }).where.not(id: excluded_ids)
   end
 
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  protected
+
+    def employee_chain_ids
+      ids = []
+
+      employees.each do |employee|
+        ids << employee.id
+        ids.concat(employee.employee_chain_ids)
+      end
+
+      return ids
+    end
 
   private
 

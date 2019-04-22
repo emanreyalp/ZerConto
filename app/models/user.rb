@@ -9,6 +9,8 @@ class User < ApplicationRecord
   validate :itself_superior
   validate :one_of_its_superiors
 
+  before_destroy :has_employee
+
   def has_role?(role)
     roles.pluck(:name).include? role
   end
@@ -27,6 +29,14 @@ class User < ApplicationRecord
   end
 
   private
+
+    def has_employee
+      return if employees.empty?
+
+      errors.add :user, 'Cannot delete user with employee'
+      throw(:abort)
+    end
+
     def superior_chain_ids
       superior_ids = []
       user = self

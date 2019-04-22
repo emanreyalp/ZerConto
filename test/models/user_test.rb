@@ -46,4 +46,12 @@ class UserTest < ActiveSupport::TestCase
       user_without_superior.save!
     end
   end
+
+  test 'User cannot be deleted if has employee' do
+    user = create(:user, :with_employee)
+
+    assert_raises(ActiveRecord::RecordNotDestroyed) do
+      user.destroy!
+    end
+  end
 end
